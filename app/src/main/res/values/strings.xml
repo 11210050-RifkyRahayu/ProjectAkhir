@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SmartBite</string>
+    <string name="title_home">Camera</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Setting</string>
+    <string name="gallery">Galeri</string>
+    <string name="analyze">analis</string>
+    <string name="result">result</string>
+    <string name="title_user">Nama Lengkap</string>
+</resources>
