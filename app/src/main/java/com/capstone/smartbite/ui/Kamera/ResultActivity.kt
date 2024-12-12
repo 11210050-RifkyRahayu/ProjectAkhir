@@ -5,14 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.capstone.smartbite.R
 import com.capstone.smartbite.data.FileUploadResponse
 import com.capstone.smartbite.databinding.ActivityResultBinding
+import com.dewakoding.androidchartjs.util.ChartType
 
 class ResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityResultBinding
@@ -21,6 +19,8 @@ class ResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
 
         val imageUriy = intent.getStringExtra(EXTRA_IMAGE_URI)?.let {
             Uri.parse(it)
@@ -34,6 +34,21 @@ class ResultActivity : AppCompatActivity() {
         imageUri?.let {
             findViewById<ImageView>(R.id.previewImageView).setImageURI(it)
         }
+
+        result?.let {
+            binding.androidChart1.setChart(
+                ChartType.PIE,
+                arrayOf("Calories", "Protein", "Fat", "Carbohydrates"),
+                arrayOf(it.food.nutritionInfo.calories.toFloat(),
+                    it.food.nutritionInfo.protein.toString().toFloatOrNull() ?: 0f,
+                    it.food.nutritionInfo.fat.toString().toFloatOrNull() ?: 0f,
+                    it.food.nutritionInfo.carbohydrate.toString().toFloatOrNull() ?: 0f
+                ).map { value -> value.toInt() }.toTypedArray(),
+                "of quantity"
+            )
+
+        }
+
 
         // Display the result text
         result?.let {
@@ -49,6 +64,8 @@ class ResultActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.resultTextView).text = resultText
         } ?: Log.e("ResultActivity", "No result received!")
     }
+
+
     companion object {
         const val EXTRA_IMAGE_URI = "extra_image_uri"
         const val EXTRA_RESULT = "extra_result"

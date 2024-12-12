@@ -1,5 +1,6 @@
 [versions]
 agp = "8.4.1"
+androidchartjs = "1.0.5"
 androidGifDrawable = "1.2.29"
 converterGson = "2.9.0"
 firebaseBom = "33.7.0"
@@ -32,6 +33,7 @@ firebaseAuth = "23.1.0"
 
 [libraries]
 android-gif-drawable = { module = "pl.droidsonroids.gif:android-gif-drawable", version.ref = "androidGifDrawable" }
+androidchartjs = { module = "com.github.SeptiawanAjiP:AndroidChartJS", version.ref = "androidchartjs" }
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }

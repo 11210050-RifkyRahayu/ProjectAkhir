@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation (libs.androidchartjs)
     implementation(libs.firebase.bom)
     implementation(libs.google.firebase.auth)
 
@@ -95,5 +96,8 @@ dependencies {
 
     //firebase
     implementation (libs.play.services.auth)
+    //graf
+
+
 
 }

@@ -13,10 +13,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.constraintlayout.core.motion.utils.Utils
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.capstone.smartbite.R
 import com.capstone.smartbite.data.ApiConfig
@@ -31,7 +29,6 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import org.tensorflow.lite.task.vision.classifier.Classifications
 import retrofit2.HttpException
 import java.io.File
-import java.text.NumberFormat
 
 class CameraFragment : Fragment(){
 

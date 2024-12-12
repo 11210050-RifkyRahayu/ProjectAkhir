@@ -19,11 +19,23 @@
             app:srcCompat="@drawable/baseline_image_24"/>
 
         <TextView
-            android:textColor="@color/black"
             android:id="@+id/resultTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="@string/result" />
+            android:text="@string/result"
+            android:textColor="@color/black" />
+
+        <com.dewakoding.androidchartjs.AndroidChartJSView
+            android:text="@string/app_name"
+            android:id="@+id/android_chart_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+
     </LinearLayout>
+
+
 </ScrollView>
