@@ -8,4 +8,5 @@
     <string name="result">result</string>
     <string name="title_user">Nama Lengkap</string>
     <string name="empty_image_warning">Silakan masukkan berkas gambar terlebih dahulu.</string>
+    <string name="default_web_client_id">787055846570-ief3s0bsg1mlh382eak5defq47f233nf.apps.googleusercontent.com</string>
 </resources>

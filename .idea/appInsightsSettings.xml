@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.capstone.smartbite" />
+                  <option name="mobileSdkAppId" value="1:787055846570:android:c9fb1274bb7c04ce9f1cd3" />
+                  <option name="projectId" value="smartbite-0e0632cb" />
+                  <option name="projectNumber" value="787055846570" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

@@ -1,38 +1,71 @@
 package com.capstone.smartbite.ui.Setting
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.capstone.smartbite.Login.LoginActivity
+import com.capstone.smartbite.R
 import com.capstone.smartbite.databinding.FragmentSettingBinding
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 
 class SettingFragment : Fragment() {
 
     private var _binding: FragmentSettingBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var mAuth: FirebaseAuth
+
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val settingViewModel =
-            ViewModelProvider(this).get(SettingViewModel::class.java)
-
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
 
-        val textView: TextView = binding.textNotifications
-        settingViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance()
+
+        // Configure Google Sign-In
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+
+        // Set logout button click listener
+        binding.logoutButton.setOnClickListener {
+            signOutAndNavigateToSignIn()
         }
-        return root
+    }
+
+    private fun signOutAndNavigateToSignIn() {
+        mAuth.signOut()
+        mGoogleSignInClient.signOut().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val intent = Intent(requireContext(), LoginActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
+            } else {
+                Toast.makeText(requireContext(), "gagal logout", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     override fun onDestroyView() {
