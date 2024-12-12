@@ -3,11 +3,15 @@ package com.capstone.smartbite.ui.Kamera
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.capstone.smartbite.R
+import com.capstone.smartbite.data.FileUploadResponse
 import com.capstone.smartbite.databinding.ActivityResultBinding
 
 class ResultActivity : AppCompatActivity() {
@@ -18,22 +22,33 @@ class ResultActivity : AppCompatActivity() {
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val imageUri = intent.getStringExtra(EXTRA_IMAGE_URI)?.let {
+        val imageUriy = intent.getStringExtra(EXTRA_IMAGE_URI)?.let {
             Uri.parse(it)
         }
-        val result = intent.getStringExtra(EXTRA_RESULT)
+        val resultt = intent.getStringExtra(EXTRA_RESULT)
+        // Get data from intent
+        val result = intent.getSerializableExtra("result") as? FileUploadResponse
+        val imageUri = intent.getStringExtra("imageUri")?.toUri()
 
-        imageUri?.also {uri ->
-            Log.d("Image URI", "showImage from uri: $uri")
-            binding.resultImage.setImageURI(uri)
-        } ?: Log.e("ResultActivity", "Image URI is null")
+        // Display the image
+        imageUri?.let {
+            findViewById<ImageView>(R.id.previewImageView).setImageURI(it)
+        }
 
-        result?.also {text ->
-            Log.d("Result", "showResult Text: $text")
-            binding.resultText.text = text
-        } ?: Log.e("ResultActivity", "Result text is null")
+        // Display the result text
+        result?.let {
+            val resultText = String.format(
+                "Food: %s\nCalories: %d\nProtein: %.2fg\nFat: %.2fg\nCarbohydrates: %.2fg\nConfidence: %.2f%%",
+                it.food.foodName,
+                it.food.nutritionInfo.calories,
+                it.food.nutritionInfo.protein.toString().toFloatOrNull() ?: 0f,
+                it.food.nutritionInfo.fat.toString().toFloatOrNull() ?: 0f,
+                it.food.nutritionInfo.carbohydrate.toString().toFloatOrNull() ?: 0f,
+                (it.food.probability.toFloatOrNull() ?: 0f) * 100
+            )
+            findViewById<TextView>(R.id.resultTextView).text = resultText
+        } ?: Log.e("ResultActivity", "No result received!")
     }
-    // TODO: Menampilkan hasil gambar, prediksi, dan confidence score.
     companion object {
         const val EXTRA_IMAGE_URI = "extra_image_uri"
         const val EXTRA_RESULT = "extra_result"

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.capstone.smartbite.DetailActivity
 import com.capstone.smartbite.data.ListEventsItem
 import com.capstone.smartbite.databinding.ItemEventactiveBinding
 
@@ -38,12 +37,6 @@ class DashboardAdapter (private val onItemClickListener: (ListEventsItem) -> Uni
             Glide.with(binding.imgEventActive.context)
                 .load(event.imageLogo)
                 .into(binding.imgEventActive)
-
-            itemView.setOnClickListener{
-                val intent = Intent(itemView.context, DetailActivity::class.java)
-                intent.putExtra("EXTRA_EVENT_ID", event.id)
-                itemView.context.startActivity(intent)
-            }
         }
     }
 
